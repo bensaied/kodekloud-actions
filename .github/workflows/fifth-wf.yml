@@ -1,11 +1,24 @@
-name: Triggers
+name: Triggers and concurrency
 
 on:
     workflow_dispatch:
 
 jobs:
-    Greeting_Job:
+    Build_Job:
         runs-on: windows-latest
         steps:
-        - name: Say Hello
-          run: echo "Hello my friends to Triggers workflow"
+        - name: Build process
+          run: echo "Building ..."
+
+    Deploy_Job:
+        needs: Build_Job
+        concurrency: 
+            group: production-deployment
+            cancel-in-progress: true
+        runs-on: windows-latest
+        steps:
+        - name: Deploy process
+          run: echo "We are deploying now ..."
+
+        - name: Sleep a while
+          run: sleep 600s        
