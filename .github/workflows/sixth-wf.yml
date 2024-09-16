@@ -1,0 +1,25 @@
+name: Timeout for jobs and steps
+
+on:
+    push
+
+jobs:
+    Build_Job:
+        runs-on: windows-latest
+        steps:
+        - name: Build process
+          run: echo "Building ..."
+
+    Deploy_Job:
+        needs: Build_Job
+        concurrency: 
+            group: production-deployment
+            cancel-in-progress: false
+        runs-on: windows-latest
+        steps:
+        - name: Deploy process
+          run: echo "We are deploying now ..."
+
+        - name: Sleep a while
+          timeout-minutes: 1       # If this step takes more than 1 min, it will be terminated
+          run: sleep 6000s        # It will be a memory cost
