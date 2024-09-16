@@ -1,0 +1,27 @@
+name: Second Workflow
+
+on: push  
+
+jobs:
+    First_Job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Welcome Message
+              run: echo "Welcome to my Second GitHub Action"
+            
+            - name: Checkout Repo
+              uses: actions/checkout@v4
+              
+            - name: Install Cowsay Program
+              run: sudo apt-get install cowsay -y
+            
+            - name: Execute Cowsay CMD
+              run: cowsay -f dragon "Run for cover, I am a DRAGON !!" >> dragon.txt
+            
+            - name: Pipeline ( Testing Files existance, Read File and list Repo files )
+              run: |
+                    grep -i "dragon" dragon.txt
+                    cat dragon.txt
+                    ls -la
+
+
