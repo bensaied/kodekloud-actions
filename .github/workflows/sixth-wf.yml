@@ -12,6 +12,7 @@ jobs:
 
     Deploy_Job:
         needs: Build_Job
+        timeout-minutes: 1       # If this job takes more than 1 min, it will be terminated
         concurrency: 
             group: production-deployment
             cancel-in-progress: false
@@ -20,6 +21,5 @@ jobs:
         - name: Deploy process
           run: echo "We are deploying now ..."
 
-        - name: Sleep a while
-          timeout-minutes: 1       # If this step takes more than 1 min, it will be terminated
+        - name: Sleep a while    
           run: sleep 6000s        # It will be a memory cost
