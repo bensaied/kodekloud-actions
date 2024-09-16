@@ -1,0 +1,42 @@
+name: Third Workflow
+
+on: push  
+
+jobs:
+    Build_Job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Welcome Message
+              run: echo "Welcome to my Third GitHub Action"
+            
+            - name: Checkout Repo
+              uses: actions/checkout@v4 
+              
+            - name: Install Cowsay 
+              run: sudo apt-get install cowsay -y
+
+            - name: Execute Cowsay CMD
+              run: cowsay -f dragon "Run for cover, I am a DRAGON !!" >> dragon.txt
+
+    Test_Job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v4 
+
+            - name: Test file Existance
+              run: grep -i "dragon" dragon.txt
+
+    Deploy_Job:
+            runs-on: ubuntu-latest
+            steps:
+
+            - name: Sleep for 10 seconds
+              run: sleep 10      
+
+            - name: Read File
+              run: cat dragon.txt     
+
+            - name: Deploy
+              uses: echo "Deploying ..."
+        
