@@ -1,4 +1,4 @@
-name: Third Workflow
+name: Executing Multiple Jobs
 
 on: push  
 
