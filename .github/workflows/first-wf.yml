@@ -18,5 +18,8 @@ jobs:
     Second_Job:
         runs-on: windows-latest
         steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v4 
+
             - name: Read file
               run: cat README.md
