@@ -10,6 +10,12 @@ jobs:
         matrix: # Under matrix strategy we gonna to define vars
           os: [ubuntu-latest, windows-latest]
           images: [hello-world, alpine]
+          exclude:   # Excluding alpine image for windows runner
+            - images: alpine
+              os: windows-latest
+          include:
+            - images: amd64/alpine
+              os: ubuntu-latest
       runs-on: ${{matrix.os}}
       steps:
       - name: Echo Docker Details
