@@ -3,24 +3,58 @@ name: Lab 1
 on: push  
 
 jobs:
+
     # hello-job:
     #     runs-on: ubuntu-latest
     #     steps:
     #         - name: Echo text
     #           run: echo "Hello, world!"
 
+
+
+    # build:
+    #     runs-on: ubuntu-latest
+    
+    #     steps:
+    #     - name: Checkout Repo
+    #       uses: actions/checkout@v4 
+
+    #     - name: Set up Python 3.8
+    #       uses: actions/setup-python@v2
+    #       with:
+    #         python-version: 3.8
+    
+    #     - name: Install dependencies
+    #       run: |
+    #         pip install -r requirements.txt
+
+
     build:
         runs-on: ubuntu-latest
     
         steps:
-        - name: Checkout Repo
-          uses: actions/checkout@v4 
-
-        - name: Set up Python 3.8
-          uses: actions/setup-python@v2
-          with:
-            python-version: 3.8
+        - name: Checkout code
+          uses: actions/checkout@v2
     
-        - name: Install dependencies
-          run: |
-            pip install -r requirements.txt
+        - name: Create a text file
+          run: echo "Hello, world!" > hello.txt
+    
+        - name: Archive text file
+          uses: actions/upload-artifact@v2
+          with:
+            name: hello-artifact
+            path: hello.txt
+
+    download:
+        needs: build
+        runs-on: ubuntu-latest
+        
+        steps:
+        - name: Download File
+          uses: actions/download-artifact@v2
+          with:
+            name: hello-artifact
+            path: ./artifacts
+        
+        - name: Read file
+          run: cat ./artifacts/hello.txt
