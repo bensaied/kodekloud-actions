@@ -17,6 +17,12 @@ jobs:
 
             - name: Execute Cowsay CMD
               run: cowsay -f dragon "Run for cover, I am a DRAGON !!" >> dragon.txt
+            
+            - name: Upload Dragon file  # Storing Workflow data as artifact ( Upload )
+              uses: actions/upload-artifact@v3
+              with:
+                name: dragon_file
+                path: dragon.txt
 
     Test_Job:
         needs: Build_Job
@@ -25,6 +31,11 @@ jobs:
             - name: Checkout Repo
               uses: actions/checkout@v4 
 
+            - name: Download Dragon file  # Storing Workflow data as artifact ( Download )
+              uses: actions/download-artifact@v3
+              with:
+                name: dragon_file
+
             - name: Test file Existance
               run: grep -i "dragon" dragon.txt
 
@@ -32,8 +43,10 @@ jobs:
         needs: Test_Job # In other case, we can define multiple jobs in an array [ Test_Job, Build_Job ]
         runs-on: ubuntu-latest
         steps:
-            - name: Sleep for 10 seconds
-              run: sleep 10      
+            - name: Download Dragon file  # Storing Workflow data as artifact ( Download )
+              uses: actions/download-artifact@v3
+              with:
+                name: dragon_file
 
             - name: Read File
               run: cat dragon.txt     
