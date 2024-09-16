@@ -1,0 +1,11 @@
+name: Triggers
+
+on:
+    workflow_dispatch:
+
+jobs:
+    Greeting_Job:
+        runs-on: windows-latest
+        steps:
+        - name: Say Hello
+          run: echo "Hello my friends to Triggers workflow"
