@@ -10,7 +10,7 @@ jobs:
               run: echo "Welcome to my First GitHub Action"
             
             - name: Checkout Repo
-              run: actions/checkout@v4
+              uses: actions/checkout@v4 # Action must be declared with 'uses' not 'run'
               
             - name: List files
               run: ls -la
