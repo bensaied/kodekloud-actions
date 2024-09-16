@@ -1,0 +1,32 @@
+name: Environmental Variables and Secrets
+
+on: push
+
+# Environmental Variables at Workflow Level
+env:
+    CONTAINER_REGISTRY: docker.io
+    DOCKER_USERNAME: bensaied
+    IMAGE_NAME: github-actions-nginx    
+
+jobs:
+  Build_Job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Docker Build
+      run: echo docker build -t ${{ env.CONTAINER_REGISTRY }}/$DOCKER_USERNAME/$IMAGE_NAME:latest
+
+    - name: Docker Login
+      env:
+        DOCKER_PASSWORD: s3cUrePaSsw0rd
+      run: echo docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD
+
+    - name: Docker Publish
+      run: echo docker push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME:latest
+
+
+  Deploy_Job:
+    needs: Build_Job
+    runs-on: ubuntu-latest
+    steps:
+    - name: Docker Run
+      run: echo docker run -d -p 8080:80 $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME:latest
