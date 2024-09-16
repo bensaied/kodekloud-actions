@@ -12,16 +12,11 @@ jobs:
             - name: Checkout Repo
               uses: actions/checkout@v4
               
-            - name: Install Cowsay Program
-              run: sudo apt-get install cowsay -y
+            - name: List Files
+              run: ls -la
             
-            - name: Execute Cowsay CMD
-              run: cowsay -f dragon "Run for cover, I am a DRAGON !!" >> dragon.txt
-            
-            - name: Pipeline ( Testing Files existance, Read File and list Repo files )
-              run: |
-                    grep -i "dragon" dragon.txt
-                    cat dragon.txt
-                    ls -la
+            - name: Executing Shell Script
+              run: ./ascii-script.sh
+
 
 
