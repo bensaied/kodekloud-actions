@@ -1,0 +1,14 @@
+name: First Workflow
+
+on: push   #Trigger
+
+jobs:
+    First_Job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Welcome Message
+              run: echo "Welcome to my First GitHub Action"
+              
+    # SecondJob:
+    #     runs-on: windows-latest
+    #     steps
