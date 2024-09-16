@@ -10,11 +10,11 @@ jobs:
               run: echo "Welcome to my First GitHub Action"
             
             - name: Checkout Repo
-              run: actions/checkout/@v4
+              run: actions/checkout@v4
               
             - name: List files
               run: ls -la
-              
+
     # SecondJob:
     #     runs-on: windows-latest
     #     steps
