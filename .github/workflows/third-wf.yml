@@ -19,6 +19,7 @@ jobs:
               run: cowsay -f dragon "Run for cover, I am a DRAGON !!" >> dragon.txt
 
     Test_Job:
+        needs: Build_Job
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repo
@@ -28,9 +29,9 @@ jobs:
               run: grep -i "dragon" dragon.txt
 
     Deploy_Job:
-            runs-on: ubuntu-latest
-            steps:
-
+        needs: Test_Job # In other case, we can define multiple jobs in an array [ Test_Job, Build_Job ]
+        runs-on: ubuntu-latest
+        steps:
             - name: Sleep for 10 seconds
               run: sleep 10      
 
