@@ -1,4 +1,4 @@
-name: Second Workflow
+name: Executing Shell Script with permissions
 
 on: push  
 
@@ -19,6 +19,3 @@ jobs:
               run: |
                 chmod +x ascii-script.sh 
                 ./ascii-script.sh
-
-
-
